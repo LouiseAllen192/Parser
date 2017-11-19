@@ -1,41 +1,42 @@
 %{
+using namespace std;
 #include "parser.tab.h"
 #include<stdio.h>
-#include<string.h>
+#include<string>
 %}
 option caseless
 
 %%
 
-"beginning"				{printf("Found BEGINNING\n"); return BEGINNING;}
-"body"					{printf("Found BODY\n"); return BODY;}
-"end"					{printf("Found END\n"); return END;}
-"input"					{printf("Found INPUT\n"); return INPUT;}
-"print"					{printf("Found PRINT\n"); return PRINT;}
-"move"					{printf("Found MOVE\n"); return MOVE;}
-"to"					{printf("Found TO\n"); return TO;}
-"add"					{printf("Found ADD\n"); return ADD;}
-";"						{printf("Found delimiter ;\n"); return DELIMITER;}
+"beginning"				{return BEGINNING;}
+"body"					{return BODY;}
+"end"					{return END;}
+"input"					{return INPUT;}
+"print"					{return PRINT;}
+"move"					{return MOVE;}
+"to"					{return TO;}
+"add"					{return ADD;}
+";"						{return DELIMITER;}
 "."						{return TERMINATOR;}
 
-\"([^\\\"]|\\.)*\"		{printf("Found a string %s\n", yytext);
-						yylval.str = strdup(yytext); 
+\"([^\\\"]|\\.)*\"		{yylval.str_val = new string(yytext); 
 						return STRING;}
 
-[Xx]+					{printf("Found int capacity %s\n", yytext);
-						yylval.capac = yyleng;
+[Xx]+					{yylval.int_val = yyleng;
 						return CAPACITY;}
 
-[A-Za-z][A-Za-z0-9-]*	{printf("Found variable name %s\n", yytext); 
-						yylval.var = yytext;
+[A-Za-z][A-Za-z0-9-]*	{yylval.str_val = new string(yytext);
 						return VAR_NAME;}
 
-[0-9]+					{printf("Found number %s\n", yytext);
-						yylval.num = atoi(yytext); 
+[0-9]+					{yylval.int_val = atoi(yytext); 
 						return NUM;}
 
 
 [\t\n]					{;}
+" "						{;}
+.						{printf("Unknown found: %s\n", yytext);
+						yylval.str_val = new string(yytext);
+						return UNKNOWN;}
 
 %%
 

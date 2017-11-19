@@ -62,28 +62,19 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "parser.y" /* yacc.c:339  */
+#line 1 "jibuc.y" /* yacc.c:339  */
 
-using namespace std;
 #include<stdio.h>
-#include <iostream>
-#include "lex.yy.c"
-#include <map>
-#include <string>
-#include <math.h>
-void yyerror(char const *s);
-void unknownVarError(string s);
-void assignmentErrorVarToVar(string varName1, string varName2, int capac, int val);
-void assignmentErrorNumToVar(int num, string varName, int capac);
-void additionErrorNumToVar(int num, string varName, int varVal, int valAdded, int capac);
-void additionErrorVarToVar(string varName1, string varName2, int valAdded, int capac);
-void inputError(int num, string varName, int capac);
-char* removeQuotes(string str);
-int numDigits(unsigned int num);
-map<string, int> vars;
-map<string, int> vars_capac;
+#include<iostream>
+using namespace std;
 
-#line 87 "parser.tab.c" /* yacc.c:339  */
+extern "C" int yylex();
+extern "C" int yyparse();
+extern "C" FILE *yyin;
+
+void yyerror(const char *s);
+
+#line 78 "jibuc.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -102,9 +93,9 @@ map<string, int> vars_capac;
 #endif
 
 /* In a future release of Bison, this section will be replaced
-   by #include "parser.tab.h".  */
-#ifndef YY_YY_PARSER_TAB_H_INCLUDED
-# define YY_YY_PARSER_TAB_H_INCLUDED
+   by #include "jibuc.tab.h".  */
+#ifndef YY_YY_JIBUC_TAB_H_INCLUDED
+# define YY_YY_JIBUC_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -119,20 +110,8 @@ extern int yydebug;
   enum yytokentype
   {
     BEGINNING = 258,
-    BODY = 259,
-    END = 260,
-    INPUT = 261,
-    PRINT = 262,
-    MOVE = 263,
-    TO = 264,
-    ADD = 265,
-    DELIMITER = 266,
-    TERMINATOR = 267,
-    CAPACITY = 268,
-    NUM = 269,
-    VAR_NAME = 270,
-    STRING = 271,
-    UNKNOWN = 272
+    END = 259,
+    BODY = 260
   };
 #endif
 
@@ -141,12 +120,11 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 22 "parser.y" /* yacc.c:355  */
+#line 13 "jibuc.y" /* yacc.c:355  */
 
-	int int_val;
-	string* str_val;
+	int ival;
 
-#line 150 "parser.tab.c" /* yacc.c:355  */
+#line 128 "jibuc.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -159,11 +137,11 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_PARSER_TAB_H_INCLUDED  */
+#endif /* !YY_YY_JIBUC_TAB_H_INCLUDED  */
 
 /* Copy the second part of user declarations.  */
 
-#line 167 "parser.tab.c" /* yacc.c:358  */
+#line 145 "jibuc.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -405,21 +383,21 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   52
+#define YYLAST   3
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  18
+#define YYNTOKENS  6
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  20
+#define YYNNTS  2
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  30
+#define YYNRULES  2
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  58
+#define YYNSTATES  6
 
 /* YYTRANSLATE[YYX] -- Symbol number corresponding to YYX as returned
    by yylex, with out-of-bounds checking.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   272
+#define YYMAXUTOK   260
 
 #define YYTRANSLATE(YYX)                                                \
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -454,18 +432,14 @@ static const yytype_uint8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17
+       5
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    37,    37,    41,    42,    46,    47,    51,    58,    59,
-      60,    64,    65,    69,    70,    74,    75,    79,    89,    97,
-     108,   119,   123,   127,   128,   132,   142,   143,   147,   148,
-     152
+       0,    19,    19
 };
 #endif
 
@@ -474,13 +448,8 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "BEGINNING", "BODY", "END", "INPUT",
-  "PRINT", "MOVE", "TO", "ADD", "DELIMITER", "TERMINATOR", "CAPACITY",
-  "NUM", "VAR_NAME", "STRING", "UNKNOWN", "$accept", "language",
-  "declarations", "statements", "declaration", "statement", "assignment",
-  "move_assignment", "add_assignment", "move_var", "move_num", "add_num",
-  "add_var", "input", "output", "input_ids", "input_var", "print_ids",
-  "printable", "inner_var", YY_NULLPTR
+  "$end", "error", "$undefined", "BEGINNING", "END", "BODY", "$accept",
+  "jibuc", YY_NULLPTR
 };
 #endif
 
@@ -489,15 +458,14 @@ static const char *const yytname[] =
    (internal) symbol number NUM (which must be that of a token).  */
 static const yytype_uint16 yytoknum[] =
 {
-       0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270,   271,   272
+       0,   256,   257,   258,   259,   260
 };
 # endif
 
-#define YYPACT_NINF -16
+#define YYPACT_NINF -5
 
 #define yypact_value_is_default(Yystate) \
-  (!!((Yystate) == (-16)))
+  (!!((Yystate) == (-5)))
 
 #define YYTABLE_NINF -1
 
@@ -508,12 +476,7 @@ static const yytype_uint16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       1,    -3,    11,    12,   -16,     9,    -1,     4,   -16,    14,
-      15,   -16,     7,   -16,    13,     3,     6,     8,     0,    17,
-     -16,   -16,   -16,   -16,   -16,   -16,   -16,   -16,   -16,   -16,
-      24,   -16,   -16,   -16,    25,   -16,   -16,    28,    29,    30,
-      31,    32,    33,   -16,    13,     3,    13,    13,    13,    13,
-     -16,   -16,   -16,   -16,   -16,   -16,   -16,   -16
+      -3,    -4,     2,    -1,    -5,    -5
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -521,26 +484,19 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       0,     0,     0,     0,     1,     0,     0,     0,     7,     0,
-       0,     4,     0,     3,     0,     0,     0,     0,     0,     0,
-       8,    11,    12,    13,    14,    15,    16,     9,    10,    30,
-      21,    23,    25,    28,    22,    26,    29,     0,     0,     0,
-       0,     0,     0,     6,     0,     0,     0,     0,     0,     0,
-       2,     5,    24,    27,    18,    17,    19,    20
+       0,     0,     0,     0,     1,     2
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -16,   -16,   -16,   -16,    35,    34,   -16,   -16,   -16,   -16,
-     -16,   -16,   -16,   -16,   -16,   -16,    -2,   -16,     2,   -15
+      -5,    -5
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,     6,    18,     7,    19,    20,    21,    22,    23,
-      24,    25,    26,    27,    28,    30,    31,    34,    35,    32
+      -1,     2
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -548,52 +504,31 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_uint8 yytable[] =
 {
-      36,    38,    40,     9,     1,    41,    14,    15,    16,     3,
-      17,     4,     5,    14,    15,    16,    11,    17,    29,    33,
-      37,    29,    39,    29,     8,     5,    12,    13,    29,    43,
-      36,    54,    55,    56,    57,    44,    45,    46,    47,    48,
-      49,    10,    52,     0,    50,    51,     0,    53,     0,     0,
-       0,     0,    42
+       1,     3,     4,     5
 };
 
-static const yytype_int8 yycheck[] =
+static const yytype_uint8 yycheck[] =
 {
-      15,    16,    17,     4,     3,     5,     6,     7,     8,    12,
-      10,     0,    13,     6,     7,     8,    12,    10,    15,    16,
-      14,    15,    14,    15,    15,    13,    12,    12,    15,    12,
-      45,    46,    47,    48,    49,    11,    11,     9,     9,     9,
-       9,     6,    44,    -1,    12,    12,    -1,    45,    -1,    -1,
-      -1,    -1,    18
+       3,     5,     0,     4
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,     3,    19,    12,     0,    13,    20,    22,    15,     4,
-      22,    12,    12,    12,     6,     7,     8,    10,    21,    23,
-      24,    25,    26,    27,    28,    29,    30,    31,    32,    15,
-      33,    34,    37,    16,    35,    36,    37,    14,    37,    14,
-      37,     5,    23,    12,    11,    11,     9,     9,     9,     9,
-      12,    12,    34,    36,    37,    37,    37,    37
+       0,     3,     7,     5,     0,     4
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    18,    19,    20,    20,    21,    21,    22,    23,    23,
-      23,    24,    24,    25,    25,    26,    26,    27,    28,    29,
-      30,    31,    32,    33,    33,    34,    35,    35,    36,    36,
-      37
+       0,     6,     7
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     8,     3,     2,     3,     2,     2,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     4,     4,     4,
-       4,     2,     2,     1,     3,     1,     1,     3,     1,     1,
-       1
+       0,     2,     3
 };
 
 
@@ -1270,100 +1205,13 @@ yyreduce:
   switch (yyn)
     {
         case 2:
-#line 37 "parser.y" /* yacc.c:1646  */
-    {printf("\n\nValid language\n"); }
-#line 1276 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 7:
-#line 51 "parser.y" /* yacc.c:1646  */
-    {
-	printf("Declare %s capacity %i \n", (yyvsp[0].str_val)->c_str(), (yyvsp[-1].int_val));
-	vars_capac[*(yyvsp[0].str_val)] = (yyvsp[-1].int_val); vars[*(yyvsp[0].str_val)] = 0;
-  }
-#line 1285 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 17:
-#line 79 "parser.y" /* yacc.c:1646  */
-    { 
-	printf("Move %s to %s. \n", (yyvsp[-2].str_val)->c_str(), (yyvsp[0].str_val)->c_str());
-    if (vars_capac[*(yyvsp[0].str_val)] < numDigits(vars[*(yyvsp[-2].str_val)])) 
-		assignmentErrorVarToVar(*(yyvsp[-2].str_val), *(yyvsp[0].str_val), vars_capac[*(yyvsp[0].str_val)], vars[*(yyvsp[-2].str_val)]);
-	else 
-		vars[*(yyvsp[0].str_val)] = vars[*(yyvsp[-2].str_val)];
-  }
-#line 1297 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 18:
-#line 89 "parser.y" /* yacc.c:1646  */
-    {
-	printf("Move %i to %s.\n", (yyvsp[-2].int_val), (yyvsp[0].str_val)->c_str());
-    if (vars_capac[*(yyvsp[0].str_val)] < numDigits((yyvsp[-2].int_val))) assignmentErrorNumToVar((yyvsp[-2].int_val), *(yyvsp[0].str_val), vars_capac[*(yyvsp[0].str_val)]);
-	else vars[*(yyvsp[0].str_val)] = (yyvsp[-2].int_val);
-  }
-#line 1307 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 19:
-#line 97 "parser.y" /* yacc.c:1646  */
-    {
-	int valAdded = (yyvsp[-2].int_val) + vars[*(yyvsp[0].str_val)];
-	printf("Add %i to %s.  ", (yyvsp[-2].int_val), (yyvsp[0].str_val)->c_str());
-	printf("%s = %i + %i = %i \n", (yyvsp[0].str_val)->c_str(), vars[*(yyvsp[0].str_val)], (yyvsp[-2].int_val), valAdded);
-
-    if (vars_capac[*(yyvsp[0].str_val)] < numDigits(valAdded)) additionErrorNumToVar((yyvsp[-2].int_val), *(yyvsp[0].str_val), vars[*(yyvsp[0].str_val)], valAdded, vars_capac[*(yyvsp[0].str_val)]);
-    else vars[*(yyvsp[0].str_val)] = (yyvsp[-2].int_val) + vars[*(yyvsp[0].str_val)];
-  }
-#line 1320 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 20:
-#line 108 "parser.y" /* yacc.c:1646  */
-    {
-    int valAdded = vars[*(yyvsp[-2].str_val)] + vars[*(yyvsp[0].str_val)];
-	printf("Add %s to %s.  ", (yyvsp[-2].str_val)->c_str(), (yyvsp[0].str_val)->c_str());
-	printf("%s = %i + %i = %i \n", (yyvsp[0].str_val)->c_str(), vars[*(yyvsp[-2].str_val)], vars[*(yyvsp[0].str_val)], valAdded);
-
-    if (vars_capac[*(yyvsp[0].str_val)] < numDigits(valAdded)) additionErrorVarToVar(*(yyvsp[-2].str_val), *(yyvsp[0].str_val), valAdded, vars_capac[*(yyvsp[0].str_val)]);
-	else vars[*(yyvsp[0].str_val)] = vars[*(yyvsp[-2].str_val)] + vars[*(yyvsp[0].str_val)];
-  }
-#line 1333 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 25:
-#line 132 "parser.y" /* yacc.c:1646  */
-    {
-  	int n;
-	printf("\nInput value for %s:", (yyvsp[0].str_val)->c_str());
-	scanf("%d", &n);
-	if (vars_capac[*(yyvsp[0].str_val)] < numDigits(n)) inputError(n, *(yyvsp[0].str_val), vars_capac[*(yyvsp[0].str_val)]);
-	else vars[*(yyvsp[0].str_val)] = n;
-  }
-#line 1345 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 28:
-#line 147 "parser.y" /* yacc.c:1646  */
-    {printf("%s", removeQuotes(*(yyvsp[0].str_val)));}
-#line 1351 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 29:
-#line 148 "parser.y" /* yacc.c:1646  */
-    {printf("%i", vars[*(yyvsp[0].str_val)]);}
-#line 1357 "parser.tab.c" /* yacc.c:1646  */
-    break;
-
-  case 30:
-#line 152 "parser.y" /* yacc.c:1646  */
-    {if(!vars.count(*(yyvsp[0].str_val))) unknownVarError(*(yyvsp[0].str_val)); else (yyval.str_val) = (yyvsp[0].str_val);}
-#line 1363 "parser.tab.c" /* yacc.c:1646  */
+#line 20 "jibuc.y" /* yacc.c:1646  */
+    {printf("Is a valid language instance\n");}
+#line 1211 "jibuc.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1367 "parser.tab.c" /* yacc.c:1646  */
+#line 1215 "jibuc.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1591,93 +1439,16 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 157 "parser.y" /* yacc.c:1906  */
-
-char **fileList;
-unsigned currentFile = 0;
-unsigned nFiles;
-
-void yyerror(char const *s) {
-  fprintf(stderr, "error: %s\n", s);
-}
-
-void assignmentErrorVarToVar(string varName1, string varName2, int capac, int val) {
-	printf("Error: Cannot move %s to %s. %s has a value of %i, %s only has capacity for %i digit number\n", 
-		varName1.c_str(), varName2.c_str(), varName1.c_str(), val, varName2.c_str(), capac); exit(0);
-}
-
-void assignmentErrorNumToVar(int num, string varName, int capac) {
-	printf("Error: Cannot move %i to %s. %s only has capacity for %i digit number\n", 
-		num, varName.c_str(), varName.c_str(), capac); exit(0);
-}
-
-void additionErrorVarToVar(string varName1, string varName2, int valAdded, int capac) {
-	printf("Error: Cannot add %s to %s. %s + %s = %i. %s only has capacity for %i digit number\n", 
-		varName1.c_str(), varName2.c_str(), varName1.c_str(), varName2.c_str(), valAdded, varName2.c_str(), capac); 
-    exit(0);
-}
-
-void additionErrorNumToVar(int num, string varName, int varVal, int valAdded, int capac) {
-	printf("Error: Cannot add %i to %s. %s = %i. %i + %s = %i. %s only has capacity for %i digit number\n", 
-		num, varName.c_str(), varName.c_str(), varVal , num, varName.c_str(), valAdded, varName.c_str(), capac); 
-    exit(0);
-}
-
-void inputError(int num, string varName, int capac) {
-	printf("Error: Cannot input %i to %s. %s only has capacity for %i digit number\n", 
-		num, varName.c_str(), varName.c_str(), capac); exit(0);
-}
-
-void unknownVarError(string s) {
-	printf("Error: %s has not been declared in this scope!\n", s.c_str()); exit(0);
-}
-
-int numDigits(unsigned int num) {
-	return num > 0 ? (int) log10 ((double) num) + 1 : 1;
-}
-
-char* removeQuotes(string str) {
-	char *cstr = new char[str.length() + 1];
-	strcpy(cstr, str.c_str());
-
-	char *strWithoutQuotes = (char*) malloc(strlen(cstr));
-	int i, j;
-	j = 0;
-	for(i = 1; i < strlen(cstr); i++){
-		if(cstr[i] == '"' && cstr[i-1] != '\\') {
-			continue;
-		}
-		strWithoutQuotes[j++] = cstr[i];
-	}
-	delete [] cstr;
-	return strWithoutQuotes;
-}
+#line 22 "jibuc.y" /* yacc.c:1906  */
 
 
-
-int main(int argc, char *argv[]) {
-
-	FILE *file;
-	fileList = argv+1;
-	nFiles = argc-1;
-	
-	if (argc < 2) {
-		fprintf(stderr, "Too few arguments: %s", argv[0]);
-		exit(1);
-	}
-
-	if(argc == 2) {
-		currentFile = 1;
-		file = fopen(argv[1], "r");
-		if (!file) {
-			fprintf(stderr, "I can't open file: %s", argv[1]);
-			exit(1);
-		}
-		yyin = file;
-	}
-
+int main() {
 	do { yyparse();
 	} while(!feof(yyin));
-
-	return 0;
 }
+
+int yyerror(char *s) {
+	fprintf(stderr, "Error: %s\n", s);
+	exit(-1);
+}
+

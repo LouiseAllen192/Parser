@@ -1,0 +1,15 @@
+{quotes}(\\.|[^\\])*{quotes}		{printf("Found string to print %s\n", yytext);}
+
+
+{quotes}		{BEGIN(string)}
+<string>[^\\"\n]*   	{ x += yytext;}
+<string>\\n         	{ x = x + '\n'}
+<string>\\t         	{ x = x + '\t'}
+<string>\\[0-9A-Za-z]*  { x = x + yytex;}
+<string>\\[\\"]     	{ x = x + yytext[1];}
+<string>\"          	{ BEGIN 0; printf("Found string to print %s\n", strdup(BufferData(strbuf))); }
+<string>\\.         	{ error("bogus escape '%s' in string\n", yytext); }
+<string>\n          	{ error("newline in string\n"); }
+
+
+\"([^\\\"]|\\.)*\"		{printf("Found a string %s\n", yytext);}

@@ -1,19 +1,28 @@
 BEGINNING.
 
-XXX A123.
-XX A9923---.
-XXXX A4.
-XXXXX R--.
-XXX IO-.
+X A-W.
+XX B.
+XXX C--.
+XXXX D.
+
 
 BODY.
 
-MOVE A123 TO A9923---.
-ADD.
-MOVE 3 TO A9923---.
-INPUT A123; A9923---.
-INPUT A123.
-PRINT "hi";A123;"c";A9---;A4;G6-;"".
-ADD.
+MOVE 1 TO A-W.
+MOVE 30 TO B.
+MOVE 500 TO C--.
+MOVE 600 TO D.
+
+ADD 4 TO B.
+ADD 1 TO A-W.
+ADD 1000 TO D.
+
+
+PRINT "hi";A-W;" ";D;" ";C--;"Hello!".
+
+INPUT A-W; C--.
+
+ADD 1 TO A-W.
+
 
 END.
