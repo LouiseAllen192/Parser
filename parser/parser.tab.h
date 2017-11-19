@@ -45,7 +45,7 @@ extern int yydebug;
 # define YYTOKENTYPE
   enum yytokentype
   {
-    BEGINNING = 258,
+    BEGINING = 258,
     BODY = 259,
     END = 260,
     INPUT = 261,
@@ -68,7 +68,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 22 "parser.y" /* yacc.c:1909  */
+#line 18 "parser.y" /* yacc.c:1909  */
 
 	int int_val;
 	string* str_val;

@@ -1,20 +1,23 @@
-BEGINNING.
+BEGINIng.
 
 X A-W.
-XX B.
+XX Bb.
 XXX C--.
 XXXX D.
-
+XX T2.
 
 BODY.
 
 MOVE 1 TO A-W.
-MOVE 30 TO B.
+MOVE 30 TO Bb.
 MOVE 500 TO C--.
-MOVE 600 TO D.
+MOVE 1 TO D.
+MOVE 1 TO A-W.
 
-ADD 4 TO B.
-ADD 1 TO A-W.
+move 70 to T2.
+add 50 to T2.
+
+ADD 4 TO Bb.
 ADD 1000 TO D.
 
 
